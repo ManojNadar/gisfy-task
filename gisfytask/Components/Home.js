@@ -1,12 +1,41 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 
-const home = () => {
+const Home = ({ navigation }) => {
   return (
-    <View>
-      <Text>home</Text>
+    <View style={styles.container}>
+      <Text
+        style={styles.textContainer}
+        onPress={() => {
+          navigation.navigate("login");
+        }}
+      >
+        Add
+      </Text>
+      <Text style={styles.textContainer}>Edit</Text>
+      <Text style={styles.textContainer}>View</Text>
+      <Text style={styles.textContainer}>Sync</Text>
     </View>
   );
 };
 
-export default home;
+export default Home;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  textContainer: {
+    width: "70%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginVertical: 15,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    paddingVertical: 10,
+    fontSize: 22,
+    fontWeight: "bold",
+  },
+});
