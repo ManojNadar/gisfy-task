@@ -13,7 +13,14 @@ const Home = ({ navigation }) => {
         Add
       </Text>
       <Text style={styles.textContainer}>Edit</Text>
-      <Text style={styles.textContainer}>View</Text>
+      <Text
+        onPress={() => {
+          navigation.navigate("Viewdetails");
+        }}
+        style={styles.textContainer}
+      >
+        View
+      </Text>
       <Text style={styles.textContainer}>Sync</Text>
     </View>
   );

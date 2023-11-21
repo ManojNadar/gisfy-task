@@ -1,6 +1,7 @@
 import { View, Text, TextInput, StyleSheet, Button } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
+import api from "../ApiConfig/Api";
 
 const Login = ({ navigation }) => {
   const [data, setData] = useState({
@@ -10,8 +11,8 @@ const Login = ({ navigation }) => {
   });
   const [img, setImg] = useState("");
 
-  //   console.log(data);
-  //   console.log(img);
+  // console.log(data);
+  // console.log(img);
 
   function handleChange(value, name) {
     setData((prevValue) => ({ ...prevValue, [name]: value }));
@@ -34,6 +35,25 @@ const Login = ({ navigation }) => {
     const { name, classes, link } = data;
 
     if (name && classes && link && img) {
+      // console.log(name, classes, link, img,"");
+
+      try {
+        const response = await api.post("/register", { data, img });
+
+        if (response.data.success) {
+          alert(response.data.message);
+          setData({
+            name: "",
+            classes: "",
+            link: "",
+          });
+          setImg("");
+        } else {
+          alert("Oops Error on saving");
+        }
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       alert("all fileds are mandatory");
     }
@@ -51,6 +71,7 @@ const Login = ({ navigation }) => {
         <TextInput
           style={styles.inputStyle}
           onChangeText={(text) => handleChange(text, "name")}
+          value={data.name}
         />
       </View>
 
@@ -59,6 +80,7 @@ const Login = ({ navigation }) => {
         <TextInput
           style={styles.inputStyle}
           onChangeText={(text) => handleChange(text, "classes")}
+          value={data.classes}
         />
       </View>
 
@@ -71,6 +93,7 @@ const Login = ({ navigation }) => {
         <TextInput
           style={styles.inputStyle}
           onChangeText={(text) => handleChange(text, "link")}
+          value={data.link}
         />
       </View>
 
